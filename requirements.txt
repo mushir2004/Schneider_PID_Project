@@ -1,0 +1,8 @@
+chromadb
+sentence-transformers
+Pillow
+numpy
+python-dotenv
+tqdm
+google-generativeai
+pdf2image
