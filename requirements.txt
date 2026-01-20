@@ -4,5 +4,16 @@ Pillow
 numpy
 python-dotenv
 tqdm
-google-generativeai
 pdf2image
+
+
+torch
+torchvision
+transformers
+timm
+einops
+scipy
+
+
+pandas
+streamlit

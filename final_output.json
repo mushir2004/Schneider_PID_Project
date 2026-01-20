@@ -1,0 +1,194 @@
+[
+    {
+        "tile": "page_1_tile_0_0.png",
+        "symbols": [
+            {
+                "final_label": "gate_valve",
+                "original_ai_label": "envelope",
+                "confidence": "High (DB Verified: 64.46)",
+                "bbox": [
+                    0.5120000243186951,
+                    0.5120000243186951,
+                    1023.488037109375,
+                    1022.4640502929688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_0_1.png",
+        "symbols": [
+            {
+                "final_label": "heat_exchanger",
+                "original_ai_label": "airplane",
+                "confidence": "High (DB Verified: 41.93)",
+                "bbox": [
+                    865.7920532226562,
+                    240.1280059814453,
+                    1023.488037109375,
+                    342.52801513671875
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_0_2.png",
+        "symbols": [
+            {
+                "final_label": "envelope",
+                "original_ai_label": "envelope",
+                "confidence": "Low (AI Guess)",
+                "bbox": [
+                    0.5120000243186951,
+                    0.35100001096725464,
+                    1023.488037109375,
+                    700.947021484375
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_1_0.png",
+        "symbols": [
+            {
+                "final_label": "heat_exchanger",
+                "original_ai_label": "vehicle",
+                "confidence": "High (DB Verified: 45.92)",
+                "bbox": [
+                    375.2960205078125,
+                    972.2880249023438,
+                    1023.488037109375,
+                    1023.488037109375
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_1_1.png",
+        "symbols": [
+            {
+                "final_label": "heat_exchanger",
+                "original_ai_label": "furniture",
+                "confidence": "High (DB Verified: 43.30)",
+                "bbox": [
+                    375.2960205078125,
+                    858.6240234375,
+                    531.968017578125,
+                    1023.488037109375
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_1_2.png",
+        "symbols": [
+            {
+                "final_label": "check_valve",
+                "original_ai_label": "furniture",
+                "confidence": "High (DB Verified: 47.49)",
+                "bbox": [
+                    10.75200080871582,
+                    0.35100001096725464,
+                    534.0160522460938,
+                    126.00900268554688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_2_0.png",
+        "symbols": [
+            {
+                "final_label": "gate_valve",
+                "original_ai_label": "whiteboard",
+                "confidence": "High (DB Verified: 61.67)",
+                "bbox": [
+                    0.5120000243186951,
+                    0.5120000243186951,
+                    1023.488037109375,
+                    1022.4640502929688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_2_1.png",
+        "symbols": [
+            {
+                "final_label": "gate_valve",
+                "original_ai_label": "house",
+                "confidence": "High (DB Verified: 62.66)",
+                "bbox": [
+                    0.5120000243186951,
+                    0.5120000243186951,
+                    1023.488037109375,
+                    1022.4640502929688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_2_2.png",
+        "symbols": [
+            {
+                "final_label": "gate_valve",
+                "original_ai_label": "ruler",
+                "confidence": "High (DB Verified: 27.55)",
+                "bbox": [
+                    354.8160095214844,
+                    0.35100001096725464,
+                    1022.4640502929688,
+                    121.79700469970703
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_3_0.png",
+        "symbols": [
+            {
+                "final_label": "heat_exchanger",
+                "original_ai_label": "street light",
+                "confidence": "High (DB Verified: 45.37)",
+                "bbox": [
+                    66.79199981689453,
+                    614.9120483398438,
+                    210.93600463867188,
+                    1022.4640502929688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_3_1.png",
+        "symbols": [
+            {
+                "final_label": "check_valve",
+                "original_ai_label": "envelope",
+                "confidence": "High (DB Verified: 40.78)",
+                "bbox": [
+                    0.2639999985694885,
+                    0.5120000243186951,
+                    527.7360229492188,
+                    1022.4640502929688
+                ]
+            }
+        ]
+    },
+    {
+        "tile": "page_1_tile_3_2.png",
+        "symbols": [
+            {
+                "final_label": "envelope",
+                "original_ai_label": "envelope",
+                "confidence": "Low (AI Guess)",
+                "bbox": [
+                    0.2639999985694885,
+                    0.35100001096725464,
+                    527.7360229492188,
+                    700.947021484375
+                ]
+            }
+        ]
+    }
+]

@@ -1,133 +1,138 @@
 import os
-import json
-import google.generativeai as genai
+import torch
 from PIL import Image
-from dotenv import load_dotenv
+from transformers import AutoProcessor, AutoModelForCausalLM
 
 class VisionAgent:
     def __init__(self, db_instance=None):
-        """
-        initializes the Vision Agent.
-        :param db_instance: An instance of ISASymbolDB (The Brain)
-        """
-        load_dotenv()
-        api_key = os.getenv("GOOGLE_API_KEY")
-        if not api_key:
-            raise ValueError("GOOGLE_API_KEY not found in .env file")
+        print("\n📥 Initializing Local AI (Microsoft Florence-2-Large)...")
+        print("   (Note: First run will download ~1.5GB. Please wait...)\n")
+        
+        # 1. GPU Setup
+        # We know this works because your check_gpu.py passed!
+        self.device = "cuda"
+        self.torch_dtype = torch.float16 
+        
+        print(f"🚀 GPU ACTIVE: {torch.cuda.get_device_name(0)}")
+
+        # 2. Load Model
+        # We use the 'Large' model because your 8GB GPU can handle it easily.
+        model_id = "microsoft/Florence-2-large" 
+        
+        try:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_id, 
+                trust_remote_code=True,
+                torch_dtype=self.torch_dtype,
+                attn_implementation="eager"
+            ).to(self.device)
             
-        genai.configure(api_key=api_key)
-        # We use the newest Flash model from your list
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+            self.processor = AutoProcessor.from_pretrained(
+                model_id, 
+                trust_remote_code=True
+            )
+            print("✅ Local AI Model Loaded Successfully.\n")
+        except Exception as e:
+            print(f"❌ Error loading model: {e}")
+            raise e
+
         self.db = db_instance
 
     def scan_tile(self, image_path):
         """
-        Step 1: Ask Gemini to find bounding boxes.
+        Uses Local GPU AI to find objects.
         """
-        print(f"  Scanning tile: {os.path.basename(image_path)}...")
-        img = Image.open(image_path)
-        
-        prompt = """
-        Analyze this P&ID engineering diagram.
-        Locate all equipment and instrument symbols.
-        
-        Return a STRICT JSON list. Format:
-        [
-          {"label": "valve", "box_2d": [ymin, xmin, ymax, xmax]},
-          {"label": "pump", "box_2d": [ymin, xmin, ymax, xmax]}
-        ]
-        
-        Important:
-        - Coordinates must be normalized (0-1000).
-        - If you see a valve, just label it "valve".
-        - If you see a pump, just label it "pump".
-        - If you see a circle with letters, label it "instrument".
-        """
+        print(f"👁️  Scanning: {os.path.basename(image_path)}...")
         
         try:
-            response = self.model.generate_content([prompt, img])
-            text = response.text.strip()
-            # Clean markdown
-            if text.startswith("```"):
-                text = text.replace("```json", "").replace("```", "")
-            
-            raw_detections = json.loads(text)
-            return self._refine_detections(img, raw_detections)
-            
-        except Exception as e:
-            print(f"⚠️  AI Detection Error: {e}")
+            image = Image.open(image_path).convert("RGB")
+        except:
             return []
+
+        # 3. Prompt for Object Detection
+        # <OD> is the special command for Florence-2 to find EVERYTHING
+        prompt = "<OD>"
+
+        # 4. Inference (GPU Accelerated)
+        inputs = self.processor(text=prompt, images=image, return_tensors="pt").to(self.device, self.torch_dtype)
+
+        generated_ids = self.model.generate(
+            input_ids=inputs["input_ids"],
+            pixel_values=inputs["pixel_values"],
+            max_new_tokens=1024,
+            do_sample=False,
+            num_beams=1,
+            use_cache=False
+        )
+
+        generated_text = self.processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
+        
+        # 5. Parse Results
+        parsed_answer = self.processor.post_process_generation(
+            generated_text, 
+            task=prompt, 
+            image_size=(image.width, image.height)
+        )
+        
+        detections = parsed_answer.get('<OD>', {})
+        bboxes = detections.get('bboxes', [])
+        labels = detections.get('labels', [])
+
+        # 6. Format
+        formatted_results = []
+        for bbox, label in zip(bboxes, labels):
+            formatted_results.append({
+                "label": label, 
+                "box_2d": bbox # [x1, y1, x2, y2]
+            })
+
+        # 7. Verify with Brain
+        return self._refine_detections(image, formatted_results)
 
     def _refine_detections(self, original_image, detections):
-        """
-        Step 2: The Agentic Workflow.
-        """
         refined_results = []
-        width, height = original_image.size
-
-        if not detections:
-            return []
-
+        
         for item in detections:
-            # SAFETY CHECK 1: Ensure item is a dictionary
-            if not isinstance(item, dict):
+            label = item['label']
+            box = item['box_2d']
+            x1, y1, x2, y2 = box
+            
+            # Filter tiny noise (anything smaller than 15x15 pixels)
+            if (x2 - x1) < 15 or (y2 - y1) < 15:
                 continue
 
-            label = item.get('label', 'unknown')
-            box = item.get('box_2d', [])
-
-            # SAFETY CHECK 2: Ensure box has exactly 4 coordinates
-            if not isinstance(box, list) or len(box) != 4:
-                print(f"   ⚠️ Skipping invalid box format: {box}")
-                continue
-
-            # Convert normalized 0-1000 coords to actual pixels
             try:
-                ymin, xmin, ymax, xmax = box
-                left = (xmin / 1000) * width
-                top = (ymin / 1000) * height
-                right = (xmax / 1000) * width
-                bottom = (ymax / 1000) * height
-                
-                # SAFETY CHECK 3: Avoid negative or zero-size crops
-                if right <= left or bottom <= top:
-                    continue
-
-                # Crop the symbol
-                symbol_crop = original_image.crop((left, top, right, bottom))
-                
-                # Save crop temporarily
+                symbol_crop = original_image.crop((x1, y1, x2, y2))
                 temp_crop_path = "temp_crop.png"
                 symbol_crop.save(temp_crop_path)
-
-                final_label = label
-                confidence = "Low (AI Guess)"
-                
-                # === THE AGENTIC DECISION ===
-                if self.db:
-                    match_result = self.db.search_symbol(temp_crop_path)
-                    
-                    if match_result:
-                        # In ChromaDB, larger distance = worse match.
-                        # < 10.0 is usually a 'okay' match for unnormalized vectors
-                        dist = match_result['confidence_score']
-                        match_name = match_result['match']
-                        
-                        # Adjust this threshold based on your data
-                        if dist < 60.0: 
-                            final_label = match_name
-                            confidence = f"High (Verified by DB: {dist:.2f})"
-                        else:
-                            confidence = f"Medium (DB match weak: {dist:.2f})"
-                
-                refined_results.append({
-                    "final_label": final_label,
-                    "original_ai_label": label,
-                    "confidence": confidence,
-                    "bbox": [left, top, right, bottom]
-                })
-            except Exception as e:
-                print(f"   ⚠️ Error processing box: {e}")
+            except:
                 continue
+
+            final_label = label
+            confidence = "Low (AI Guess)"
+            
+            # Ask the Vector DB (The Brain)
+            if self.db:
+                match_result = self.db.search_symbol(temp_crop_path)
+                
+                if match_result:
+                    dist = match_result['confidence_score']
+                    match_name = match_result['match']
+                    
+                    # Logic: If visual match is strong (< 65), trust the DB.
+                    if dist < 65.0: 
+                        final_label = match_name
+                        confidence = f"High (DB Verified: {dist:.2f})"
+                    # Logic: If AI says "valve" and DB says "gate_valve", trust the DB even if match is weak
+                    elif "valve" in label or "pump" in label:
+                         final_label = match_name
+                         confidence = f"Medium (DB Refined: {dist:.2f})"
+
+            refined_results.append({
+                "final_label": final_label,
+                "original_ai_label": label,
+                "confidence": confidence,
+                "bbox": [x1, y1, x2, y2]
+            })
 
         return refined_results
