@@ -3,9 +3,9 @@
         "tile": "page_1_tile_0_0.png",
         "symbols": [
             {
-                "final_label": "gate_valve",
+                "final_label": "plate_tower",
                 "original_ai_label": "envelope",
-                "confidence": "High (DB Verified: 64.39)",
+                "confidence": "High (DB Verified: 57.18)",
                 "bbox": [
                     0.5120000243186951,
                     0.5120000243186951,
@@ -35,9 +35,9 @@
         "tile": "page_1_tile_0_2.png",
         "symbols": [
             {
-                "final_label": "envelope",
+                "final_label": "various_mixers_2",
                 "original_ai_label": "envelope",
-                "confidence": "Low (AI Guess)",
+                "confidence": "High (DB Verified: 64.45)",
                 "bbox": [
                     0.5120000243186951,
                     0.35100001096725464,
@@ -83,9 +83,9 @@
         "tile": "page_1_tile_1_2.png",
         "symbols": [
             {
-                "final_label": "check_valve",
+                "final_label": "various_mixers_2",
                 "original_ai_label": "furniture",
-                "confidence": "High (DB Verified: 47.51)",
+                "confidence": "High (DB Verified: 43.65)",
                 "bbox": [
                     10.75200080871582,
                     0.35100001096725464,
@@ -99,9 +99,9 @@
         "tile": "page_1_tile_2_0.png",
         "symbols": [
             {
-                "final_label": "gate_valve",
+                "final_label": "plate_tower",
                 "original_ai_label": "whiteboard",
-                "confidence": "High (DB Verified: 61.63)",
+                "confidence": "High (DB Verified: 51.03)",
                 "bbox": [
                     0.5120000243186951,
                     0.5120000243186951,
@@ -115,9 +115,9 @@
         "tile": "page_1_tile_2_1.png",
         "symbols": [
             {
-                "final_label": "gate_valve",
+                "final_label": "plate_tower",
                 "original_ai_label": "house",
-                "confidence": "High (DB Verified: 62.64)",
+                "confidence": "High (DB Verified: 62.11)",
                 "bbox": [
                     0.5120000243186951,
                     0.5120000243186951,
@@ -147,9 +147,9 @@
         "tile": "page_1_tile_3_0.png",
         "symbols": [
             {
-                "final_label": "heat_exchanger",
+                "final_label": "various_mixers_2",
                 "original_ai_label": "street light",
-                "confidence": "High (DB Verified: 45.31)",
+                "confidence": "High (DB Verified: 43.11)",
                 "bbox": [
                     66.79199981689453,
                     614.9120483398438,
@@ -179,9 +179,9 @@
         "tile": "page_1_tile_3_2.png",
         "symbols": [
             {
-                "final_label": "envelope",
+                "final_label": "various_mixers_2",
                 "original_ai_label": "envelope",
-                "confidence": "Low (AI Guess)",
+                "confidence": "High (DB Verified: 33.06)",
                 "bbox": [
                     0.2639999985694885,
                     0.35100001096725464,

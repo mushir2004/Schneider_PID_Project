@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<PID_Extraction>
+	<Component>
+		<Type>plate_tower</Type>
+		<Location>[0.5120000243186951, 0.5120000243186951, 1023.488037109375, 1022.4640502929688]</Location>
+		<Source>page_1_tile_0_0.png</Source>
+		<Confidence>High (DB Verified: 57.18)</Confidence>
+	</Component>
+	<Component>
+		<Type>heat_exchanger</Type>
+		<Location>[865.7920532226562, 240.1280059814453, 1023.488037109375, 342.52801513671875]</Location>
+		<Source>page_1_tile_0_1.png</Source>
+		<Confidence>High (DB Verified: 41.78)</Confidence>
+	</Component>
+	<Component>
+		<Type>various_mixers_2</Type>
+		<Location>[0.5120000243186951, 0.35100001096725464, 1023.488037109375, 700.947021484375]</Location>
+		<Source>page_1_tile_0_2.png</Source>
+		<Confidence>High (DB Verified: 64.45)</Confidence>
+	</Component>
+	<Component>
+		<Type>heat_exchanger</Type>
+		<Location>[375.2960205078125, 972.2880249023438, 1023.488037109375, 1023.488037109375]</Location>
+		<Source>page_1_tile_1_0.png</Source>
+		<Confidence>High (DB Verified: 46.04)</Confidence>
+	</Component>
+	<Component>
+		<Type>heat_exchanger</Type>
+		<Location>[375.2960205078125, 858.6240234375, 531.968017578125, 1023.488037109375]</Location>
+		<Source>page_1_tile_1_1.png</Source>
+		<Confidence>High (DB Verified: 43.40)</Confidence>
+	</Component>
+	<Component>
+		<Type>various_mixers_2</Type>
+		<Location>[10.75200080871582, 0.35100001096725464, 534.0160522460938, 126.00900268554688]</Location>
+		<Source>page_1_tile_1_2.png</Source>
+		<Confidence>High (DB Verified: 43.65)</Confidence>
+	</Component>
+	<Component>
+		<Type>plate_tower</Type>
+		<Location>[0.5120000243186951, 0.5120000243186951, 1023.488037109375, 1022.4640502929688]</Location>
+		<Source>page_1_tile_2_0.png</Source>
+		<Confidence>High (DB Verified: 51.03)</Confidence>
+	</Component>
+	<Component>
+		<Type>plate_tower</Type>
+		<Location>[0.5120000243186951, 0.5120000243186951, 1023.488037109375, 1022.4640502929688]</Location>
+		<Source>page_1_tile_2_1.png</Source>
+		<Confidence>High (DB Verified: 62.11)</Confidence>
+	</Component>
+	<Component>
+		<Type>gate_valve</Type>
+		<Location>[354.8160095214844, 0.35100001096725464, 1022.4640502929688, 121.79700469970703]</Location>
+		<Source>page_1_tile_2_2.png</Source>
+		<Confidence>High (DB Verified: 27.47)</Confidence>
+	</Component>
+	<Component>
+		<Type>various_mixers_2</Type>
+		<Location>[66.79199981689453, 614.9120483398438, 210.93600463867188, 1022.4640502929688]</Location>
+		<Source>page_1_tile_3_0.png</Source>
+		<Confidence>High (DB Verified: 43.11)</Confidence>
+	</Component>
+	<Component>
+		<Type>check_valve</Type>
+		<Location>[0.2639999985694885, 0.5120000243186951, 527.7360229492188, 1022.4640502929688]</Location>
+		<Source>page_1_tile_3_1.png</Source>
+		<Confidence>High (DB Verified: 40.80)</Confidence>
+	</Component>
+	<Component>
+		<Type>various_mixers_2</Type>
+		<Location>[0.2639999985694885, 0.35100001096725464, 527.7360229492188, 700.947021484375]</Location>
+		<Source>page_1_tile_3_2.png</Source>
+		<Confidence>High (DB Verified: 33.06)</Confidence>
+	</Component>
+</PID_Extraction>
